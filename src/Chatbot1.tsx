@@ -392,7 +392,7 @@ function selectSector(sector) {
       contactMessage = \`Contact:<br>  
         Manmeet Kaur<br>  
         <a class="email-link" href="javascript:void(0);" onclick="openComposeEmail('manmeet.kaur@sixdindia.com')">manmeet.kaur@sixdindia.com</a><br>  
-        +91 8130110300
+        +91 8800188112
       \`;
     } else if (sector === 'Others') {
       contactMessage = \`Contact:<br>  
