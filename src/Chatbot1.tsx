@@ -349,7 +349,7 @@ const existingJavaScript = `
   function askSector() {
   appendMessage("Your organisation belongs to which sector?", 'bot');
   setTimeout(() => {
-    const sectors = ['Oil & Gas', 'Steel', 'Power', 'Green Energy', 'Cement', 'Automobile', 'Others'];
+    const sectors = ['Oil & Gas', 'Steel', 'Power', 'Green Energy', 'Cement', 'Automobile'];
     const sectorBtnContainer = document.createElement('div');
     sectorBtnContainer.classList.add('sector-btn-container');
     sectors.forEach(sector => {
@@ -377,25 +377,25 @@ function selectSector(sector) {
   setTimeout(() => {
     let contactMessage = "Please contact the following for more details:";
     if (sector === 'Oil & Gas' || sector === 'Green Energy' || sector === 'Automobile') {
-      contactMessage = \`Contact Her:<br>  
+      contactMessage = \`Contact:<br>  
         Alfisha Khan<br>  
         <a class="email-link" href="javascript:void(0);" onclick="openComposeEmail('alfisha.khan@sixdindia.com')">alfisha.khan@sixdindia.com</a><br>  
         +91 8800554157
       \`;
     } else if (sector === 'Steel') {
-      contactMessage = \`Contact Her:<br>  
+      contactMessage = \`Contact:<br>  
         Nidhi Bharti<br>  
         <a class="email-link" href="javascript:void(0);" onclick="openComposeEmail('nidhi@sixdindia.com')">nidhi@sixdindia.com</a><br>  
         +91 8800797883
       \`;
     } else if (sector === 'Power' || sector === 'Cement') {
-      contactMessage = \`Contact Her:<br>  
+      contactMessage = \`Contact:<br>  
         Manmeet Kaur<br>  
         <a class="email-link" href="javascript:void(0);" onclick="openComposeEmail('manmeet.kaur@sixdindia.com')">manmeet.kaur@sixdindia.com</a><br>  
         +91 8130110300
       \`;
     } else if (sector === 'Others') {
-      contactMessage = \`Contact Him:<br>  
+      contactMessage = \`Contact:<br>  
         Suraj Prakash Pandey<br>  
         <a class="email-link" href="javascript:void(0);" onclick="openComposeEmail('suraj.pandey@sixdindia.com')">suraj.pandey@sixdindia.com</a><br>  
         +91 9790020583
