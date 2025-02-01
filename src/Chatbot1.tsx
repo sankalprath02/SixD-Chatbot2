@@ -253,10 +253,11 @@ const existingChatbotHTML = `
   <div id="chatbot-container">
     <div id="chat-header"><strong>Welcome to SixD Chatbot</strong></div>
     <div id="chat-area">
-      <div class="bot-message message">Hi, I am Kanika, SixD's Virtual Assistant. Please choose the required option from the quick actions tab.</div>
+      <div class="bot-message message">Hi, I am Kanika, SixD's Virtual Assistant.</div>
+      <div class="bot-message message">Please type your query or choose the required option from the quick actions tab.</div>
       <div class="bot-message message">
         <button id="dropdown-btn" class="dropdown" onclick="toggleDropdown()">
-          Quick Actions <i id="dropdown-arrow" class="fas fa-chevron-down"></i>
+          Quick Actions\uFEFF  \uFEFF  \uFEFF<i id="dropdown-arrow" class="fas fa-chevron-down"></i>
         </button>
         <div id="dropdown-content" class="dropdown-content">
           <button class="quick-reply-btn" onclick="redirectTo('services')">Services</button>
@@ -340,7 +341,7 @@ const existingJavaScript = `
     loadingMessage = null;
   }
 }
-
+  
   async function sendMessage() {
     const userInput = document.getElementById('user-input').value.trim();
     if (userInput === '') return;
