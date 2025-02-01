@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { MessageCircle  } from 'lucide-react';
+import { MessageCircle } from 'lucide-react';
 
 // Define all constants before using them
 const existingStyles = `
@@ -7,6 +7,27 @@ const existingStyles = `
     font-family: 'Futura Md BT';
     src: url('https://db.onlinewebfonts.com/t/3ddd0e3d1a076e112b27d8d9b7e20200.woff2') format('woff2');
   }
+    
+  .loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinner {
+  border: 4px solid rgba(0, 0, 0, 0.1);
+  border-left-color: #ff8c00;
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
 
   body {
     font-family: 'Futura Md BT', Arial, sans-serif;
@@ -221,7 +242,7 @@ const existingChatbotHTML = `
           <button class="quick-reply-btn" onclick="redirectTo('case-studies')">Case Studies</button>
           <button class="quick-reply-btn" onclick="redirectTo('industry4')">Industry 4.0</button>
           <button class="quick-reply-btn" onclick="redirectTo('about')">About Us</button>
-          <button class="quick-reply-btn" onclick="askSector()">Contact Us</button>
+          <button class="quick-reply-btn" onclick="handleContactUs()">Contact Us</button>
         </div>
       </div>
     </div>
@@ -273,25 +294,30 @@ const existingJavaScript = `
   }
 
   function appendMessage(message, sender, isLoading = false) {
-    const messageDiv = document.createElement('div');
-    messageDiv.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
+  const messageDiv = document.createElement('div');
+  messageDiv.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
 
-    if (isLoading) {
-      messageDiv.innerHTML = \`<div class="loading-dots"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>\`;
-      loadingMessage = messageDiv;
-    } else {
-      messageDiv.innerHTML = message;
-    }
-
-    chatArea.appendChild(messageDiv);
-    chatArea.scrollTop = chatArea.scrollHeight;
-    updateScrollButtonPosition();
-
-    if (!isLoading && loadingMessage) {
-      loadingMessage.remove();
-      loadingMessage = null;
-    }
+  if (isLoading) {
+    // Add a loading spinner or animation
+    messageDiv.innerHTML = \`
+      <div class="loading-spinner">
+        <div class="spinner"></div>
+      </div>
+    \`;
+    loadingMessage = messageDiv;
+  } else {
+    messageDiv.innerHTML = message;
   }
+
+  chatArea.appendChild(messageDiv);
+  chatArea.scrollTop = chatArea.scrollHeight;
+  updateScrollButtonPosition();
+
+  if (!isLoading && loadingMessage) {
+    loadingMessage.remove();
+    loadingMessage = null;
+  }
+}
 
   async function sendMessage() {
     const userInput = document.getElementById('user-input').value.trim();
@@ -346,26 +372,41 @@ const existingJavaScript = `
     }, 1000);
   }
 
-  function askSector() {
-  appendMessage("Your organisation belongs to which sector?", 'bot');
+  function handleContactUs() {
+  appendMessage('Contact Us', 'user');
+  appendMessage('', 'bot', true); // Show loading icon
   setTimeout(() => {
-    const sectors = ['Oil & Gas', 'Steel', 'Power', 'Green Energy', 'Cement', 'Automobile'];
-    const sectorBtnContainer = document.createElement('div');
-    sectorBtnContainer.classList.add('sector-btn-container');
-    sectors.forEach(sector => {
-      const sectorBtn = document.createElement('button');
-      sectorBtn.classList.add('sector-btn');
-      sectorBtn.textContent = sector;
-      sectorBtn.onclick = () => selectSector(sector);
-      sectorBtnContainer.appendChild(sectorBtn);
-    });
-    chatArea.appendChild(sectorBtnContainer);
-    chatArea.scrollTop = chatArea.scrollHeight;
-    updateScrollButtonPosition();
+    askSector();
   }, 1000);
 }
 
-function selectSector(sector) {
+ function askSector() {
+  // Remove any existing loading message
+  if (loadingMessage) {
+    loadingMessage.remove();
+    loadingMessage = null;
+  }
+
+  appendMessage('Your organisation belongs to which sector?', 'bot');
+
+  // Show sector buttons immediately without additional loading
+  const sectors = ['Oil & Gas', 'Steel', 'Power', 'Green Energy', 'Cement', 'Automobile'];
+  const sectorBtnContainer = document.createElement('div');
+  sectorBtnContainer.classList.add('sector-btn-container');
+  sectors.forEach(sector => {
+    const sectorBtn = document.createElement('button');
+    sectorBtn.classList.add('sector-btn');
+    sectorBtn.textContent = sector;
+    sectorBtn.onclick = () => selectSector(sector);
+    sectorBtnContainer.appendChild(sectorBtn);
+  });
+
+  chatArea.appendChild(sectorBtnContainer);
+  chatArea.scrollTop = chatArea.scrollHeight;
+  updateScrollButtonPosition();
+}
+
+ function selectSector(sector) {
   // Remove the sector buttons container to prevent multiple clicks
   const sectorBtnContainer = document.querySelector('.sector-btn-container');
   if (sectorBtnContainer) {
@@ -373,7 +414,7 @@ function selectSector(sector) {
   }
 
   appendMessage(sector, 'user');
-  appendMessage('', 'bot', true);
+  appendMessage('', 'bot', true); // Show loading icon while preparing contact info
   setTimeout(() => {
     let contactMessage = "Please contact the following for more details:";
     if (sector === 'Oil & Gas' || sector === 'Green Energy' || sector === 'Automobile') {
@@ -401,6 +442,13 @@ function selectSector(sector) {
         +91 9790020583
       \`;
     }
+
+    // Remove the loading message before appending the contact info
+    if (loadingMessage) {
+      loadingMessage.remove();
+      loadingMessage = null;
+    }
+
     appendMessage(contactMessage, 'bot');
   }, 1000);
 }
@@ -468,7 +516,6 @@ function Chatbot() {
       )}
 
       {/* Chat Interface */}
-     
       {showChat && (
         <div className="fixed inset-0 bg-orange-500 w-full h-full">
           <iframe 
@@ -476,7 +523,6 @@ function Chatbot() {
             style={{ width: '100%', height: '100%', border: 'none' }}
             title="SixD Chatbot"
           />
-        
         </div>
       )}
     </div>
