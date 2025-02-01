@@ -377,22 +377,23 @@ const existingJavaScript = `
   }
 
   function redirectTo(section) {
-    appendMessage(section.charAt(0).toUpperCase() + section.slice(1), 'user');
-    
-    appendMessage('', 'bot', true);
-    setTimeout(() => {
-      const urls = {
-        services: "https://sixdindia.com/services",
-        sectors: "https://sixdindia.com/sectors",
-        "case-studies": "https://sixdindia.com/case-studies",
-        industry4: "https://sixdindia.com/industry4",
-        about: "https://sixdindia.com/about",
-        "contact-us": "https://sixdindia.com/contact"
-      };
-      window.open(urls[section], '_blank');
-      appendMessage('I have opened the tab for you, please check.', 'bot');
-    }, 1000);
-  }
+  appendMessage(section.charAt(0).toUpperCase() + section.slice(1), 'user');
+  
+  appendMessage('', 'bot', true); // Show loading icon
+  setTimeout(() => {
+    const urls = {
+      services: "https://sixdindia.com/services",
+      sectors: "https://sixdindia.com/sectors",
+      "case-studies": "https://sixdindia.com/case-studies",
+      industry4: "https://sixdindia.com/industry4",
+      about: "https://sixdindia.com/about",
+      "contact-us": "https://sixdindia.com/contact"
+    };
+
+    // Redirect in the same tab
+    window.location.href = urls[section];
+  }, 1000);
+}
 
   function handleContactUs() {
   appendMessage('Contact Us', 'user');
