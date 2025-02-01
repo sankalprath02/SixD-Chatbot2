@@ -553,7 +553,7 @@ function Chatbot() {
   };
 
   return (
-    <div className="min-h-screen bg-orange-500 flex flex-col items-center justify-center relative" style={{ fontFamily: "'Futura Md BT', Futura Md BT, Futura Md BT" }}>
+    <div className="min-h-screen bg-orange-500 flex flex-col items-center justify-center relative" style={{ fontFamily: "Futura Md BT, Arial, sans-serif" }}>
       {/* Main Content */}
       {!showChat && (
         <div className="text-center space-y-8 p-6">
