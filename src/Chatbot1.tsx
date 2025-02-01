@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { MessageCircle } from 'lucide-react';
 
 // Define all constants before using them
@@ -341,7 +341,7 @@ const existingJavaScript = `
     loadingMessage = null;
   }
 }
-  
+
   async function sendMessage() {
     const userInput = document.getElementById('user-input').value.trim();
     if (userInput === '') return;
@@ -510,27 +510,64 @@ const chatbotHTML = `
 
 function Chatbot() {
   const [showChat, setShowChat] = useState(false);
+  const [welcomeText, setWelcomeText] = useState('');
+  const [subText, setSubText] = useState('');
+
+  useEffect(() => {
+    const welcomeMessage = "Welcome to SixD Chatbot";
+    const subMessage = "Yoour intelligent assistant for engineering solutions";
+
+    let i = 0;
+    let j = 0;
+    let timeoutId1: NodeJS.Timeout, timeoutId2: NodeJS.Timeout;
+
+    const typeWelcome = () => {
+      if (i < welcomeMessage.length) {
+        setWelcomeText((prev) => prev + welcomeMessage.charAt(i));
+        i++;
+        timeoutId1 = setTimeout(typeWelcome, 100);
+      } else {
+        typeSub();
+      }
+    };
+
+    const typeSub = () => {
+      if (j < subMessage.length) {
+        setSubText((prev) => prev + subMessage.charAt(j));
+        j++;
+        timeoutId2 = setTimeout(typeSub, 50);
+      }
+    };
+
+    typeWelcome();
+
+    // Cleanup function to clear timeouts
+    return () => {
+      clearTimeout(timeoutId1);
+      clearTimeout(timeoutId2);
+    };
+  }, []); // Empty dependency array ensures this runs only once
 
   const handleGetStarted = () => {
     setShowChat(true);
   };
 
   return (
-    <div className="min-h-screen bg-orange-500 flex flex-col items-center justify-center relative" style={{ fontFamily: "'Futura Md BT', Arial, sans-serif" }}>
+    <div className="min-h-screen bg-orange-500 flex flex-col items-center justify-center relative" style={{ fontFamily: "'Futura Md BT', Futura Md BT, Futura Md BT" }}>
       {/* Main Content */}
       {!showChat && (
         <div className="text-center space-y-8 p-6">
           <h1 className="text-6xl font-bold text-white mb-6">
-            <strong>Welcome to SixD Chatbot</strong>
+            <strong>{welcomeText}</strong>
           </h1>
           <p className="text-xl text-white mb-8">
-            Your intelligent assistant for engineering solutions
+            {subText}
           </p>
           <button
             onClick={handleGetStarted}
             className="bg-white text-orange-500 px-8 py-4 rounded-full text-xl font-semibold 
                      hover:bg-orange-100 transition-colors duration-300 
-                     flex items-center gap-2"
+                     flex items-center gap-2 pulsate"
           >
             <MessageCircle className="w-6 h-6" />
             Get Started
@@ -548,6 +585,20 @@ function Chatbot() {
           />
         </div>
       )}
+
+      {/* Add CSS for pulsate animation */}
+      <style>
+        {`
+          @keyframes pulsate {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+          }
+          .pulsate {
+            animation: pulsate 1.5s infinite;
+          }
+        `}
+      </style>
     </div>
   );
 }
