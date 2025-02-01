@@ -12,19 +12,41 @@ const existingStyles = `
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 10px;
 }
 
 .spinner {
-  border: 4px solid rgba(0, 0, 0, 0.1);
-  border-left-color: #ff8c00;
+  width: 40px;
+  height: 40px;
   border-radius: 50%;
-  width: 24px;
-  height: 24px;
+  background: conic-gradient(
+    from 90deg at 50% 50%,
+    rgba(255, 140, 0, 0) 0deg,
+    #ff8c00 360deg
+  );
   animation: spin 1s linear infinite;
+  position: relative;
+}
+
+.spinner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 90deg at 50% 50%,
+    rgba(255, 140, 0, 0) 0deg,
+    rgba(255, 140, 0, 0.5) 180deg,
+    rgba(255, 140, 0, 0) 360deg
+  );
+  filter: blur(10px);
 }
 
 @keyframes spin {
-  to {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
     transform: rotate(360deg);
   }
 }
@@ -298,7 +320,7 @@ const existingJavaScript = `
   messageDiv.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
 
   if (isLoading) {
-    // Add a loading spinner or animation
+    // Add the new loading spinner
     messageDiv.innerHTML = \`
       <div class="loading-spinner">
         <div class="spinner"></div>
