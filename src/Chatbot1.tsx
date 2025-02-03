@@ -562,7 +562,7 @@ function Chatbot() {
   const [subText, setSubText] = useState('');
 
   useEffect(() => {
-    const welcomeMessage = "Welcome to SixD Chatbot";
+    const welcomeMessage = "Weelcome to SixD Chatbot";
     const subMessage = "Yoour intelligent assistant for engineering solutions";
 
     let i = 0;
