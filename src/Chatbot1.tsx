@@ -7,67 +7,49 @@ const existingStyles = `
     font-family: 'Futura Md BT';
     src: url('https://db.onlinewebfonts.com/t/3ddd0e3d1a076e112b27d8d9b7e20200.woff2') format('woff2');
   }
-
-  /* Typewriter animation */
-  @keyframes typing {
-    from { width: 0; }
-    to { width: 100%; }
-  }
-
-  @keyframes blink-caret {
-    from, to { border-color: transparent; }
-    50% { border-color: black; }
-  }
-
-  .typewriter {
-    display: inline-block;
-    overflow: hidden;
-    white-space: nowrap;
-    animation: typing 3s steps(40, end), blink-caret 0.75s step-end infinite;
-  }
-
+    
   .loading-spinner {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 10px;
-  }
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 10px;
+}
 
-  .spinner {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    background: conic-gradient(
-      from 90deg at 50% 50%,
-      rgba(255, 140, 0, 0) 0deg,
-      #ff8c00 360deg
-    );
-    animation: spin 1s linear infinite;
-    position: relative;
-  }
+.spinner {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 90deg at 50% 50%,
+    rgba(255, 140, 0, 0) 0deg,
+    #ff8c00 360deg
+  );
+  animation: spin 1s linear infinite;
+  position: relative;
+}
 
-  .spinner::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    border-radius: 50%;
-    background: conic-gradient(
-      from 90deg at 50% 50%,
-      rgba(255, 140, 0, 0) 0deg,
-      rgba(255, 140, 0, 0.5) 180deg,
-      rgba(255, 140, 0, 0) 360deg
-    );
-    filter: blur(10px);
-  }
+.spinner::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 50%;
+  background: conic-gradient(
+    from 90deg at 50% 50%,
+    rgba(255, 140, 0, 0) 0deg,
+    rgba(255, 140, 0, 0.5) 180deg,
+    rgba(255, 140, 0, 0) 360deg
+  );
+  filter: blur(10px);
+}
 
-  @keyframes spin {
-    0% {
-      transform: rotate(0deg);
-    }
-    100% {
-      transform: rotate(360deg);
-    }
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
   }
+  100% {
+    transform: rotate(360deg);
+  }
+}
 
   body {
     font-family: 'Futura Md BT', Arial, sans-serif;
@@ -78,7 +60,6 @@ const existingStyles = `
     overflow: hidden;
     font-size: 15px;
   }
-
   #chatbot-container {
     position: fixed;
     top: 0;
@@ -91,7 +72,6 @@ const existingStyles = `
     flex-direction: column;
     font-family: 'Futura Md BT', Arial, sans-serif;
   }
-
   #chat-header {
     background: #ff8c00;
     color: rgb(2, 1, 1);
@@ -101,7 +81,6 @@ const existingStyles = `
     font-family: 'Futura Md BT', Arial, sans-serif;
     font-size: 16px;
   }
-
   #chat-area {
     flex: 1;
     overflow-y: auto;
@@ -109,7 +88,6 @@ const existingStyles = `
     display: flex;
     flex-direction: column;
   }
-
   .message {
     margin: 5px 0;
     padding: 10px;
@@ -119,20 +97,17 @@ const existingStyles = `
     font-size: 15px;
     font-family: 'Futura Md BT', Arial, sans-serif;
   }
-
   .user-message {
     align-self: flex-end;
     background-color: #ff8c00;
     color: rgb(0, 0, 0);
   }
-
   .bot-message {
     align-self: flex-start;
     background-color: #ffffff;
     color: black;
     border: 1px solid #ccc;
   }
-
   #input-container {
     display: flex;
     border-top: 1px solid #ccc;
@@ -140,7 +115,6 @@ const existingStyles = `
     background: white;
     position: relative;
   }
-
   #user-input {
     flex: 1;
     padding: 10px;
@@ -150,7 +124,6 @@ const existingStyles = `
     font-family: 'Futura Md BT', Arial, sans-serif;
     font-size: 15px;
   }
-
   #send-btn {
     background: #ff8c00;
     color: rgb(0, 0, 0);
@@ -161,7 +134,6 @@ const existingStyles = `
     font-family: 'Futura Md BT', Arial, sans-serif;
     font-size: 15px;
   }
-
   .scroll-top-btn {
     position: absolute;
     right: 10px;
@@ -178,17 +150,14 @@ const existingStyles = `
     justify-content: center;
     transition: right 0.3s ease;
   }
-
   .scroll-top-btn.with-scrollbar {
     right: 30px;
   }
-
   .scroll-top-btn svg {
     width: 20px;
     height: 20px;
     color: black;
   }
-
   .quick-reply-btn {
     background-color: #ff8c00;
     color: white;
@@ -201,11 +170,9 @@ const existingStyles = `
     font-family: 'Futura Md BT', Arial, sans-serif;
     font-size: 15px;
   }
-
   .quick-reply-btn:hover {
     background-color: #e77f00;
   }
-
   .dropdown {
     margin-top: 10px;
     border: 1px solid #ccc;
@@ -219,12 +186,10 @@ const existingStyles = `
     font-family: 'Futura Md BT', Arial, sans-serif;
     font-size: 15px;
   }
-
   .dropdown-content {
     display: none;
     margin-top: 10px;
   }
-
   .dropdown-content button {
     width: 100%;
     padding: 10px;
@@ -237,24 +202,19 @@ const existingStyles = `
     font-family: 'Futura Md BT', Arial, sans-serif;
     font-size: 15px;
   }
-
   .dropdown-content button:hover {
     background-color: #e77f00;
   }
-
   .dropdown-content.show {
     display: block;
   }
-
   .dropdown i {
     font-size: 20px;
     transition: transform 0.3s ease-in-out;
   }
-
   .dropdown i.rotate {
     transform: rotate(180deg);
   }
-
   .sector-btn-container {
     display: flex;
     flex-wrap: wrap;
@@ -262,7 +222,6 @@ const existingStyles = `
     gap: 10px;
     margin-top: 10px;
   }
-
   .sector-btn {
     background-color: #ff8c00;
     color: rgb(0, 0, 0);
@@ -275,16 +234,13 @@ const existingStyles = `
     font-family: 'Futura Md BT', Arial, sans-serif;
     font-size: 15px;
   }
-
   .sector-btn:hover {
     background-color: #e77f00;
   }
-
   .contact-info {
     font-size: 15px;
     white-space: pre-wrap;
   }
-
   .email-link {
     color: blue;
     text-decoration: underline;
@@ -297,12 +253,8 @@ const existingChatbotHTML = `
   <div id="chatbot-container">
     <div id="chat-header"><strong>Welcome to SixD Chatbot</strong></div>
     <div id="chat-area">
-      <div class="bot-message message">
-        <span class="typewriter">Hi, I am Kanika, SixD's Virtual Assistant.</span>
-      </div>
-      <div class="bot-message message">
-        <span class="typewriter">Please type your query or choose the required option from the quick actions tab.</span>
-      </div>
+      <div class="bot-message message">Hi, I am Kanika, SixD's Virtual Assistant.</div>
+      <div class="bot-message message">Please type your query or choose the required option from the quick actions tab.</div>
       <div class="bot-message message">
         <button id="dropdown-btn" class="dropdown" onclick="toggleDropdown()">
           Quick Actions\uFEFF  \uFEFF  \uFEFF<i id="dropdown-arrow" class="fas fa-chevron-down"></i>
@@ -562,7 +514,7 @@ function Chatbot() {
   const [subText, setSubText] = useState('');
 
   useEffect(() => {
-    const welcomeMessage = "Weelcome to SixD Chatbot";
+    const welcomeMessage = "Welcome to SixD Chatbot";
     const subMessage = "Yoour intelligent assistant for engineering solutions";
 
     let i = 0;
@@ -573,7 +525,7 @@ function Chatbot() {
       if (i < welcomeMessage.length) {
         setWelcomeText((prev) => prev + welcomeMessage.charAt(i));
         i++;
-        timeoutId1 = setTimeout(typeWelcome, 70);
+        timeoutId1 = setTimeout(typeWelcome, 100);
       } else {
         typeSub();
       }
