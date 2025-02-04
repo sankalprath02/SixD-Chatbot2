@@ -207,7 +207,7 @@ const existingStyles = `
   }
 
   .dropdown {
-    margin-top: 10px;
+    margin-top: 8px;
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
@@ -570,6 +570,31 @@ function Chatbot() {
   const [welcomeText, setWelcomeText] = useState('');
   const [subText, setSubText] = useState('');
 
+  // Inject Google Analytics script
+  useEffect(() => {
+    const script1 = document.createElement('script');
+    script1.src = 'https://www.googletagmanager.com/gtag/js?id=G-7EHJXETHGT';
+    script1.async = true;
+
+    const script2 = document.createElement('script');
+    script2.innerHTML = `
+      window.dataLayer = window.dataLayer || [];
+      function gtag(){dataLayer.push(arguments);}
+      gtag('js', new Date());
+      gtag('config', 'G-7EHJXETHGT');
+    `;
+
+    document.head.appendChild(script1);
+    document.head.appendChild(script2);
+
+    // Cleanup function to remove scripts if the component unmounts
+    return () => {
+      document.head.removeChild(script1);
+      document.head.removeChild(script2);
+    };
+  }, []);
+
+  // Rest of your component code...
   useEffect(() => {
     const welcomeMessage = "Weelcome to SixD Chatbot";
     const subMessage = "Yoour intelligent assistant for engineering solutions";
@@ -603,7 +628,7 @@ function Chatbot() {
       clearTimeout(timeoutId1);
       clearTimeout(timeoutId2);
     };
-  }, []); // Empty dependency array ensures this runs only once
+  }, []);
 
   const handleGetStarted = () => {
     setShowChat(true);
