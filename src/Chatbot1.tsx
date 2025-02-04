@@ -548,6 +548,15 @@ const chatbotHTML = `
   <title>SixD-ChatBot</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
   <style>${existingStyles}</style>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7EHJXETHGT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7EHJXETHGT');
+</script>
 </head>
 <body>
   ${existingChatbotHTML}
