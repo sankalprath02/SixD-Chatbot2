@@ -8,6 +8,34 @@ const existingStyles = `
     src: url('https://db.onlinewebfonts.com/t/3ddd0e3d1a076e112b27d8d9b7e20200.woff2') format('woff2');
   }
 
+  .mic-btn {
+    background: #ff8c00;
+    color: rgb(0, 0, 0);
+    padding: 10px 15px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    font-family: 'Futura Md BT', Arial, sans-serif;
+    font-size: 15px;
+    margin-right: 10px;
+    transition: transform 0.2s ease-in-out; /* Smooth transition for scaling */
+}
+
+.mic-btn.active {
+    background-color: #e77f00; /* Change color when active */
+    box-shadow: 0 0 10px rgba(255, 140, 0, 0.5); /* Add a glow effect */
+    transform: scale(1.2); /* Enlarge the button */
+}
+
+.mic-btn i {
+    font-size: 16px;
+    transition: transform 0.2s ease-in-out; /* Smooth transition for icon scaling */
+}
+
+.mic-btn.active i {
+    transform: scale(1.2); /* Enlarge the icon */
+}
+
   /* Typewriter animation */
   @keyframes typing {
     from { width: 0; }
@@ -322,54 +350,116 @@ const existingChatbotHTML = `
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m18 15-6-6-6 6"/></svg>
       </button>
       <input type="text" id="user-input" placeholder="Type your message here...">
+      <button id="mic-btn" class="mic-btn">
+        <i class="fas fa-microphone"></i>
+      </button>
       <button id="send-btn" onclick="sendMessage()">Send</button>
     </div>
   </div>
 `;
 
 const existingJavaScript = `
-  const chatArea = document.getElementById('chat-area');
-  const chatbotContainer = document.getElementById('chatbot-container');
-  const dropdownArrow = document.getElementById('dropdown-arrow');
-  const dropdownContent = document.getElementById('dropdown-content');
-  const scrollTopBtn = document.querySelector('.scroll-top-btn');
+const chatArea = document.getElementById('chat-area');
+const chatbotContainer = document.getElementById('chatbot-container');
+const dropdownArrow = document.getElementById('dropdown-arrow');
+const dropdownContent = document.getElementById('dropdown-content');
+const scrollTopBtn = document.querySelector('.scroll-top-btn');
+const micBtn = document.getElementById('mic-btn');
+const userInput = document.getElementById('user-input');
 
-  let loadingMessage = null;
+let loadingMessage = null;
+let recognition = null;
+let isListening = false;
 
-  // Function to check if scrollbar is visible
-  function isScrollbarVisible() {
-    return chatArea.scrollHeight > chatArea.clientHeight;
-  }
+// Initialize voice recognition
+if ('webkitSpeechRecognition' in window) {
+    recognition = new webkitSpeechRecognition();
+    recognition.continuous = false;
+    recognition.interimResults = true;
+    recognition.lang = 'en-US';
 
-  // Function to update scroll button position
-  function updateScrollButtonPosition() {
-    if (isScrollbarVisible()) {
-      scrollTopBtn.classList.add('with-scrollbar');
-    } else {
-      scrollTopBtn.classList.remove('with-scrollbar');
+    recognition.onresult = function(event) {
+        const transcript = Array.from(event.results)
+            .map(result => result[0].transcript)
+            .join('');
+        userInput.value = transcript;
+    };
+
+    recognition.onerror = function(event) {
+        console.error('Voice recognition error:', event.error);
+        appendMessage('Sorry, I could not understand that. Please try again.', 'bot');
+    };
+
+    recognition.onend = function() {
+        if (isListening) {
+            recognition.start(); // Restart recognition if still listening
+        }
+    };
+} else {
+    console.warn('Web Speech API is not supported in this browser.');
+    micBtn.style.display = 'none'; // Hide mic button if not supported
+}
+
+micBtn.addEventListener('mousedown', () => {
+    if (recognition) {
+        isListening = true;
+        recognition.start();
+        micBtn.classList.add('active'); // Add active class for visual feedback
     }
-  }
+});
 
-  // Add scroll event listener to chat area
-  chatArea.addEventListener('scroll', updateScrollButtonPosition);
+micBtn.addEventListener('mouseup', () => {
+    if (recognition) {
+        isListening = false;
+        recognition.stop();
+        micBtn.classList.remove('active'); // Remove active class
+    }
+});
 
-  // Add mutation observer to watch for content changes
-  const observer = new MutationObserver(updateScrollButtonPosition);
-  observer.observe(chatArea, { childList: true, subtree: true });
+micBtn.addEventListener('mouseleave', () => {
+    if (isListening) {
+        isListening = false;
+        recognition.stop();
+        micBtn.classList.remove('active'); // Remove active class if mouse leaves while pressed
+    }
+});
 
-  function scrollToTop() {
+// Function to check if scrollbar is visible
+function isScrollbarVisible() {
+    return chatArea.scrollHeight > chatArea.clientHeight;
+}
+
+// Function to update scroll button position
+function updateScrollButtonPosition() {
+    if (isScrollbarVisible() && chatArea.scrollTop > 0) {
+        scrollTopBtn.classList.add('with-scrollbar');
+        scrollTopBtn.style.display = 'flex';  // Show button
+    } else {
+        scrollTopBtn.style.display = 'none';  // Hide button
+    }
+}
+
+// Add scroll event listener to chat area
+chatArea.addEventListener('scroll', updateScrollButtonPosition);
+
+// Add mutation observer to watch for content changes
+const observer = new MutationObserver(updateScrollButtonPosition);
+observer.observe(chatArea, { childList: true, subtree: true });
+
+function scrollToTop() {
     chatArea.scrollTo({
-      top: 0,
-      behavior: 'smooth'
+        top: 0,
+        behavior: 'smooth'
     });
-  }
+}
 
   function appendMessage(message, sender, isLoading = false) {
+  if (!message.trim() && !isLoading) return; // Prevent empty messages unless it's a loading message
+
   const messageDiv = document.createElement('div');
   messageDiv.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
 
   if (isLoading) {
-    // Add the new loading spinner
     messageDiv.innerHTML = \`
       <div class="loading-spinner">
         <div class="spinner"></div>
@@ -378,6 +468,7 @@ const existingJavaScript = `
     loadingMessage = messageDiv;
   } else {
     messageDiv.innerHTML = message;
+    messageDiv.style.opacity = 0; // Start hidden for all messages
   }
 
   chatArea.appendChild(messageDiv);
@@ -388,37 +479,43 @@ const existingJavaScript = `
     loadingMessage.remove();
     loadingMessage = null;
   }
+
+  // Apply gradual fade-in effect for both user and bot messages
+  setTimeout(() => {
+    messageDiv.style.transition = 'opacity 0.5s ease-in-out';
+    messageDiv.style.opacity = 1;
+  }, 300);
 }
 
   async function sendMessage() {
-    const userInput = document.getElementById('user-input').value.trim();
-    if (userInput === '') return;
+  const userInput = document.getElementById('user-input').value.trim();
+  if (userInput === '') return;
 
-    appendMessage(userInput, 'user');
-    document.getElementById('user-input').value = '';
-    appendMessage('', 'bot', true);
+  appendMessage(userInput, 'user');
+  document.getElementById('user-input').value = '';
+  appendMessage('', 'bot', true); // Show loading spinner
 
-    try {
-      const response = await fetch('http://127.0.0.1:8000/api/ask-question/', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ question: userInput }),
-      });
+  try {
+    const response = await fetch('http://127.0.0.1:8000/api/ask-question/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ question: userInput }),
+    });
 
-      if (!response.ok) {
-        throw new Error('Network response was not ok');
-      }
-
-      const data = await response.json();
-      appendMessage(data.answer, 'bot', false);
-      console.log(data);
-    } catch (error) {
-      console.error('Error:', error);
-      appendMessage('Sorry, something went wrong. Please try again later.', 'bot', false);
+    if (!response.ok) {
+      throw new Error('Network response was not ok');
     }
+
+    const data = await response.json();
+    appendMessage(data.answer, 'bot', false); // Append bot's response
+    console.log(data);
+  } catch (error) {
+    console.error('Error:', error);
+    appendMessage('Sorry, something went wrong. Please try again later.', 'bot', false);
   }
+}
 
   function toggleDropdown() {
     dropdownContent.classList.toggle('show');
@@ -596,7 +693,7 @@ function Chatbot() {
 
   // Rest of your component code...
   useEffect(() => {
-    const welcomeMessage = "Weelcome to SixD Chatbot";
+    const welcomeMessage = "Welcome to SixD Chatbot";
     const subMessage = "Yoour intelligent assistant for engineering solutions";
 
     let i = 0;
