@@ -102,7 +102,7 @@ const existingStyles = `
     text-align: center;
     font-weight: bold;
     font-family: 'Futura Md BT', Arial, sans-serif;
-    font-size: 18px;
+    font-size: 20px;
     box-shadow: 0 2px 10px rgba(255, 140, 0, 0.2);
   }
 
@@ -266,7 +266,7 @@ const existingStyles = `
     justify-content: space-between;
     align-items: center;
     font-family: 'Futura Md BT', Arial, sans-serif;
-    font-size: 15px;
+    font-size: 17px;
     transition: all 0.3s ease;
   }
 
