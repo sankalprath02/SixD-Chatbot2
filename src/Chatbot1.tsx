@@ -8,34 +8,6 @@ const existingStyles = `
     src: url('https://db.onlinewebfonts.com/t/3ddd0e3d1a076e112b27d8d9b7e20200.woff2') format('woff2');
   }
 
-  .mic-btn {
-    background: #ff8c00;
-    color: rgb(0, 0, 0);
-    padding: 10px 15px;
-    border: none;
-    cursor: pointer;
-    border-radius: 4px;
-    font-family: 'Futura Md BT', Arial, sans-serif;
-    font-size: 15px;
-    margin-right: 10px;
-    transition: transform 0.2s ease-in-out; /* Smooth transition for scaling */
-  }
-
-  .mic-btn.active {
-    background-color: #e77f00; /* Change color when active */
-    box-shadow: 0 0 10px rgba(255, 140, 0, 0.5); /* Add a glow effect */
-    transform: scale(1.2); /* Enlarge the button */
-  }
-
-  .mic-btn i {
-    font-size: 16px;
-    transition: transform 0.2s ease-in-out; /* Smooth transition for icon scaling */
-  }
-
-  .mic-btn.active i {
-    transform: scale(1.2); /* Enlarge the icon */
-  }
-
   /* Typewriter animation */
   @keyframes typing {
     from { width: 0; }
@@ -107,101 +79,131 @@ const existingStyles = `
     font-size: 15px;
   }
 
+  /* Modern glassmorphism effect for the chat container */
   #chatbot-container {
     position: fixed;
     top: 0;
     left: 0;
     width: 100%;
     height: 100vh;
-    background: rgb(245, 234, 220);
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(10px);
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
     display: flex;
     flex-direction: column;
     font-family: 'Futura Md BT', Arial, sans-serif;
   }
 
+  /* Gradient header */
   #chat-header {
-    background: #ff8c00;
-    color: rgb(2, 1, 1);
-    padding: 10px;
+    background: linear-gradient(135deg, #ff8c00 0%, #ff6b00 100%);
+    color: white;
+    padding: 15px;
     text-align: center;
     font-weight: bold;
     font-family: 'Futura Md BT', Arial, sans-serif;
-    font-size: 16px;
+    font-size: 18px;
+    box-shadow: 0 2px 10px rgba(255, 140, 0, 0.2);
   }
 
+   /* Enhanced chat area */
   #chat-area {
     flex: 1;
     overflow-y: auto;
-    padding: 10px;
+    padding: 20px;
     display: flex;
     flex-direction: column;
+    gap: 12px;
+    background: linear-gradient(180deg, rgba(255, 244, 230, 0.5) 0%, rgba(255, 255, 255, 0.5) 100%);
   }
 
+  /* Improved message bubbles */
   .message {
     margin: 5px 0;
-    padding: 10px;
-    border-radius: 8px;
+    padding: 12px 16px;
+    border-radius: 12px;
     max-width: 80%;
     word-wrap: break-word;
     font-size: 15px;
     font-family: 'Futura Md BT', Arial, sans-serif;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.05);
+    transition: transform 0.2s ease;
+  }
+
+  .message:hover {
+    transform: translateY(-1px);
   }
 
   .user-message {
     align-self: flex-end;
-    background-color: #ff8c00;
-    color: rgb(0, 0, 0);
+    background: linear-gradient(135deg, #ff8c00 0%, #ff6b00 100%);
+    color: white;
+    border: none;
   }
 
   .bot-message {
     align-self: flex-start;
-    background-color: #ffffff;
-    color: black;
-    border: 1px solid #ccc;
+    background: white;
+    color: #333;
+    border: 1px solid rgba(255, 140, 0, 0.2);
   }
 
+  /* Modern input container */
   #input-container {
     display: flex;
-    border-top: 1px solid #ccc;
-    padding: 10px;
+    padding: 16px;
     background: white;
+    border-top: 1px solid rgba(255, 140, 0, 0.1);
     position: relative;
+    gap: 10px;
   }
 
+  /* Enhanced input field */
   #user-input {
     flex: 1;
-    padding: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    margin-right: 10px;
+    padding: 12px 16px;
+    border: 2px solid rgba(255, 140, 0, 0.2);
+    border-radius: 25px;
     font-family: 'Futura Md BT', Arial, sans-serif;
     font-size: 15px;
+    transition: all 0.3s ease;
   }
 
-  #send-btn {
-    background: #ff8c00;
-    color: rgb(0, 0, 0);
-    padding: 10px 15px;
+  #user-input:focus {
+    outline: none;
+    border-color: #ff8c00;
+    box-shadow: 0 0 0 3px rgba(255, 140, 0, 0.1);
+  }
+
+  /* Modern buttons */
+  .mic-btn, #send-btn {
+    background: linear-gradient(135deg, #ff8c00 0%, #ff6b00 100%);
+    color: white;
+    padding: 12px;
     border: none;
     cursor: pointer;
-    border-radius: 4px;
-    font-family: 'Futura Md BT', Arial, sans-serif;
-    font-size: 15px;
+    border-radius: 50%;
+    width: 45px;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s ease;
   }
 
-  #send-btn:active {
-   background-color: #e77f00; /* Darker shade of the original color */
-   transform: scale(0.95); /* Slightly shrink the button */
-   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a shadow for a pressed effect */
-   transition: background-color 0.1s ease, transform 0.1s ease, box-shadow 0.1s ease; /* Smooth transition */
+  .mic-btn:hover, #send-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 3px 10px rgba(255, 140, 0, 0.2);
   }
 
-  .send-btn-pressed {
-   background-color: #e77f00;
-   transform: scale(0.95);
-   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
-   transition: background-color 0.1s ease, transform 0.1s ease, box-shadow 0.1s ease;
+  .mic-btn.active {
+    animation: pulse 1.5s infinite;
+  }
+
+  @keyframes pulse {
+    0% { box-shadow: 0 0 0 0 rgba(255, 140, 0, 0.4); }
+    70% { box-shadow: 0 0 0 10px rgba(255, 140, 0, 0); }
+    100% { box-shadow: 0 0 0 0 rgba(255, 140, 0, 0); }
   }
 
   .scroll-top-btn {
@@ -232,34 +234,45 @@ const existingStyles = `
   }
 
   .quick-reply-btn {
-    background-color: #ff8c00;
-    color: white;
-    border: none;
-    padding: 8px 12px;
+    background: white;
+    color: #ff8c00;
+    border: 1px solid rgba(255, 140, 0, 0.2);
+    padding: 10px 16px;
     margin: 5px 0;
     cursor: pointer;
-    border-radius: 5px;
+    border-radius: 8px;
     width: 100%;
     font-family: 'Futura Md BT', Arial, sans-serif;
     font-size: 15px;
+    transition: all 0.3s ease;
   }
 
   .quick-reply-btn:hover {
-    background-color: #e77f00;
+    background: rgba(255, 140, 0, 0.1);
+    border-color: #ff8c00;
+    transform: translateY(-1px);
   }
 
+  /* Enhanced quick actions */
   .dropdown {
-    margin-top: 2px;
-    border: 1px solid #ccc;
-    padding: 10px;
-    border-radius: 5px;
-    background-color: rgb(253, 168, 71);
+    margin-top: 8px;
+    border: none;
+    padding: 12px 16px;
+    border-radius: 8px;
+    background: linear-gradient(135deg, #ff8c00 0%, #ff6b00 100%);
+    color: white;
     cursor: pointer;
     display: flex;
     justify-content: space-between;
     align-items: center;
     font-family: 'Futura Md BT', Arial, sans-serif;
     font-size: 15px;
+    transition: all 0.3s ease;
+  }
+
+  .dropdown:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(255, 140, 0, 0.2);
   }
 
   .dropdown-content {
@@ -333,9 +346,365 @@ const existingStyles = `
     cursor: pointer;
     font-size: 15px;
   }
+
+   #chat-area::-webkit-scrollbar-track {
+    background: rgba(255, 140, 0, 0.1);
+    border-radius: 4px;
+  }
+
+  #chat-area::-webkit-scrollbar-thumb {
+    background: rgba(255, 140, 0, 0.5);
+    border-radius: 4px;
+  }
+
+  #chat-area::-webkit-scrollbar-thumb:hover {
+    background: rgba(255, 140, 0, 0.7);
+  }
+
+  /* Responsive adjustments */
+  @media (max-width: 768px) {
+    .message {
+      max-width: 90%;
+      font-size: 14px;
+      padding: 10px 14px;
+    }
+
+    #user-input {
+      font-size: 14px;
+      padding: 10px 14px;
+    }
+
+    .mic-btn, #send-btn {
+      width: 40px;
+      height: 40px;
+      padding: 10px;
+    }
+
+    .sector-btn {
+      width: 100%;
+      margin-bottom: 8px;
+    }
+
+    .quick-reply-btn {
+      font-size: 14px;
+      padding: 8px 12px;
+    }
+
+    #chat-header {
+      font-size: 16px;
+      padding: 12px;
+    }
+  }
 `;
 
-const existingChatbotHTML = `
+const existingJavaScript = `
+    const chatArea = document.getElementById('chat-area');
+    const chatbotContainer = document.getElementById('chatbot-container');
+    const dropdownArrow = document.getElementById('dropdown-arrow');
+    const dropdownContent = document.getElementById('dropdown-content');
+    const scrollTopBtn = document.querySelector('.scroll-top-btn');
+    const micBtn = document.getElementById('mic-btn');
+    const userInput = document.getElementById('user-input');
+    const sendBtn = document.getElementById('send-btn');
+
+    let loadingMessage = null;
+    let recognition = null;
+    let isListening = false;
+
+    // Initialize voice recognition
+    if ('webkitSpeechRecognition' in window) {
+        recognition = new webkitSpeechRecognition();
+        recognition.continuous = false;
+        recognition.interimResults = true;
+        recognition.lang = 'en-US';
+
+        recognition.onresult = function(event) {
+            const transcript = Array.from(event.results)
+                .map(result => result[0].transcript)
+                .join('');
+            userInput.value = transcript;
+        };
+
+        recognition.onerror = function(event) {
+            console.error('Voice recognition error:', event.error);
+            appendMessage('Sorry, I could not understand that. Please try again.', 'bot');
+        };
+
+        recognition.onend = function() {
+            if (isListening) {
+                recognition.start(); // Restart recognition if still listening
+            }
+        };
+    } else {
+        console.warn('Web Speech API is not supported in this browser.');
+        micBtn.style.display = 'none'; // Hide mic button if not supported
+    }
+
+    micBtn.addEventListener('mousedown', () => {
+        if (recognition) {
+            isListening = true;
+            recognition.start();
+            micBtn.classList.add('active'); // Add active class for visual feedback
+        }
+    });
+
+    micBtn.addEventListener('mouseup', () => {
+        if (recognition) {
+            isListening = false;
+            recognition.stop();
+            micBtn.classList.remove('active'); // Remove active class
+        }
+    });
+
+    micBtn.addEventListener('mouseleave', () => {
+        if (isListening) {
+            isListening = false;
+            recognition.stop();
+            micBtn.classList.remove('active'); // Remove active class if mouse leaves while pressed
+        }
+    });
+
+    // Function to check if scrollbar is visible
+    function isScrollbarVisible() {
+        return chatArea.scrollHeight > chatArea.clientHeight;
+    }
+
+    // Function to update scroll button position
+    function updateScrollButtonPosition() {
+        if (isScrollbarVisible() && chatArea.scrollTop > 0) {
+            scrollTopBtn.classList.add('with-scrollbar');
+            scrollTopBtn.style.display = 'flex';  // Show button
+        } else {
+            scrollTopBtn.style.display = 'none';  // Hide button
+        }
+    }
+
+    // Add scroll event listener to chat area
+    chatArea.addEventListener('scroll', updateScrollButtonPosition);
+
+    // Add mutation observer to watch for content changes
+    const observer = new MutationObserver(updateScrollButtonPosition);
+    observer.observe(chatArea, { childList: true, subtree: true });
+
+    function scrollToTop() {
+        chatArea.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        });
+    }
+
+    function appendMessage(message, sender, isLoading = false) {
+      if (!message.trim() && !isLoading) return; // Prevent empty messages unless it's a loading message
+
+      const messageDiv = document.createElement('div');
+      messageDiv.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
+
+      if (isLoading) {
+        messageDiv.innerHTML = \`
+          <div class="loading-spinner">
+            <div class="spinner"></div>
+          </div>
+        \`;
+        loadingMessage = messageDiv;
+      } else {
+        messageDiv.innerHTML = message;
+        messageDiv.style.opacity = 0; // Start hidden for all messages
+      }
+
+      chatArea.appendChild(messageDiv);
+      chatArea.scrollTop = chatArea.scrollHeight;
+      updateScrollButtonPosition();
+
+      if (!isLoading && loadingMessage) {
+        loadingMessage.remove();
+        loadingMessage = null;
+      }
+
+      // Apply gradual fade-in effect for both user and bot messages
+      setTimeout(() => {
+        messageDiv.style.transition = 'opacity 0.5s ease-in-out';
+        messageDiv.style.opacity = 1;
+      }, 300);
+    }
+
+    async function sendMessage() {
+      sendBtn.classList.add('send-btn-pressed'); // Add the pressed class
+
+      const userInput = document.getElementById('user-input').value.trim();
+      if (userInput === '') {
+        sendBtn.classList.remove('send-btn-pressed'); // Remove the class if input is empty
+        return;
+      }
+
+      appendMessage(userInput, 'user');
+      document.getElementById('user-input').value = '';
+      appendMessage('', 'bot', true); // Show loading spinner
+
+      setTimeout(() => {
+        sendBtn.classList.remove('send-btn-pressed'); // Remove the class after a short delay
+      }, 200); // Adjust the delay as needed
+
+      try {
+        const response = await fetch('http://127.0.0.1:8000/api/ask-question/', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ question: userInput }),
+        });
+
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
+        const data = await response.json();
+        appendMessage(data.answer, 'bot', false); // Append bot's response
+        console.log(data);
+      } catch (error) {
+        console.error('Error:', error);
+        appendMessage('Sorry, something went wrong. Please try again later.', 'bot', false);
+      }
+    }
+
+    function toggleDropdown() {
+        dropdownContent.classList.toggle('show');
+        dropdownArrow.classList.toggle('rotate');
+    }
+
+    function redirectTo(section) {
+       appendMessage(section.charAt(0).toUpperCase() + section.slice(1), 'user');
+        
+        appendMessage('', 'bot', true);
+        setTimeout(() => {
+          const urls = {
+            services: "https://sixdindia.com/services",
+            sectors: "https://sixdindia.com/sectors",
+            "case-studies": "https://sixdindia.com/case-studies",
+            industry4: "https://sixdindia.com/industry4",
+            about: "https://sixdindia.com/about",
+            "contact-us": "https://sixdindia.com/contact"
+          };
+          window.open(urls[section], '_blank');
+          appendMessage('I have opened the tab for you, please check.', 'bot');
+        }, 1000);
+    }
+        
+    function handleContactUs() {
+      appendMessage('Contact Us', 'user');
+      appendMessage('', 'bot', true); // Show loading icon
+      setTimeout(() => {
+        askSector();
+      }, 1000);
+    }
+
+    function askSector() {
+      // Remove any existing loading message
+      if (loadingMessage) {
+        loadingMessage.remove();
+        loadingMessage = null;
+      }
+
+      appendMessage('Your organisation belongs to which sector?', 'bot');
+
+      // Show sector buttons immediately without additional loading
+      const sectors = ['Oil & Gas', 'Steel', 'Power', 'Green Energy', 'Cement', 'Automobile'];
+      const sectorBtnContainer = document.createElement('div');
+      sectorBtnContainer.classList.add('sector-btn-container');
+      sectors.forEach(sector => {
+        const sectorBtn = document.createElement('button');
+        sectorBtn.classList.add('sector-btn');
+        sectorBtn.textContent = sector;
+        sectorBtn.onclick = () => selectSector(sector);
+        sectorBtnContainer.appendChild(sectorBtn);
+      });
+
+      chatArea.appendChild(sectorBtnContainer);
+      chatArea.scrollTop = chatArea.scrollHeight;
+      updateScrollButtonPosition();
+    }
+
+    function selectSector(sector) {
+      // Remove the sector buttons container to prevent multiple clicks
+      const sectorBtnContainer = document.querySelector('.sector-btn-container');
+      if (sectorBtnContainer) {
+        sectorBtnContainer.remove();
+      }
+
+      appendMessage(sector, 'user');
+      appendMessage('', 'bot', true); // Show loading icon while preparing contact info
+      setTimeout(() => {
+        let contactMessage = "Please contact the following for more details:";
+        if (sector === 'Oil & Gas' || sector === 'Green Energy' || sector === 'Automobile') {
+          contactMessage = \`Contact:<br>  
+            Alfisha Khan<br>  
+            <a class="email-link" href="javascript:void(0);" onclick="openComposeEmail('alfisha.khan@sixdindia.com')">alfisha.khan@sixdindia.com</a><br>  
+            +91 8800554157
+          \`;
+        } else if (sector === 'Steel') {
+          contactMessage = \`Contact:<br>  
+            Nidhi Bharti<br>  
+            <a class="email-link" href="javascript:void(0);" onclick="openComposeEmail('nidhi@sixdindia.com')">nidhi@sixdindia.com</a><br>  
+            +91 8800797883
+          \`;
+        } else if (sector === 'Power' || sector === 'Cement') {
+          contactMessage = \`Contact:<br>  
+            Manmeet Kaur<br>  
+            <a class="email-link" href="javascript:void(0);" onclick="openComposeEmail('manmeet.kaur@sixdindia.com')">manmeet.kaur@sixdindia.com</a><br>  
+            +91 8800188112
+          \`;
+        } else if (sector === 'Others') {
+          contactMessage = \`Contact:<br>  
+            Suraj Prakash Pandey<br>  
+            <a class="email-link" href="javascript:void(0);" onclick="openComposeEmail('suraj.pandey@sixdindia.com')">suraj.pandey@sixdindia.com</a><br>  
+            +91 9790020583
+          \`;
+        }
+
+        // Remove the loading message before appending the contact info
+        if (loadingMessage) {
+          loadingMessage.remove();
+          loadingMessage = null;
+        }
+
+        appendMessage(contactMessage, 'bot');
+      }, 1000);
+    }
+
+    function openComposeEmail(email) {
+        const mailUrl = \`https://mail.google.com/mail/?view=cm&to=\${email}&su=Subject&body=Message\`;
+        window.open(mailUrl, '_blank');
+    }
+
+    document.getElementById('user-input').addEventListener('keydown', function(event) {
+        if (event.key === 'Enter') {
+          sendMessage();
+        }
+    });
+
+    // Initial check for scrollbar
+    updateScrollButtonPosition();
+`;
+
+const chatbotHTML = `
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>SixD-ChatBot</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+  <style>${existingStyles}</style>
+  <!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-7EHJXETHGT"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-7EHJXETHGT');
+</script>
+</head>                                           
+<body>
   <div id="chatbot-container">
     <div id="chat-header"><strong>Welcome to SixD Chatbot</strong></div>
     <div id="chat-area">
@@ -370,318 +739,9 @@ const existingChatbotHTML = `
       <button id="send-btn" onclick="sendMessage()">Send</button>
     </div>
   </div>
-`;
-
-const existingJavaScript = `
-const chatArea = document.getElementById('chat-area');
-const chatbotContainer = document.getElementById('chatbot-container');
-const dropdownArrow = document.getElementById('dropdown-arrow');
-const dropdownContent = document.getElementById('dropdown-content');
-const scrollTopBtn = document.querySelector('.scroll-top-btn');
-const micBtn = document.getElementById('mic-btn');
-const userInput = document.getElementById('user-input');
-const sendBtn = document.getElementById('send-btn');
-
-let loadingMessage = null;
-let recognition = null;
-let isListening = false;
-
-// Initialize voice recognition
-if ('webkitSpeechRecognition' in window) {
-    recognition = new webkitSpeechRecognition();
-    recognition.continuous = false;
-    recognition.interimResults = true;
-    recognition.lang = 'en-US';
-
-    recognition.onresult = function(event) {
-        const transcript = Array.from(event.results)
-            .map(result => result[0].transcript)
-            .join('');
-        userInput.value = transcript;
-    };
-
-    recognition.onerror = function(event) {
-        console.error('Voice recognition error:', event.error);
-        appendMessage('Sorry, I could not understand that. Please try again.', 'bot');
-    };
-
-    recognition.onend = function() {
-        if (isListening) {
-            recognition.start(); // Restart recognition if still listening
-        }
-    };
-} else {
-    console.warn('Web Speech API is not supported in this browser.');
-    micBtn.style.display = 'none'; // Hide mic button if not supported
-}
-
-micBtn.addEventListener('mousedown', () => {
-    if (recognition) {
-        isListening = true;
-        recognition.start();
-        micBtn.classList.add('active'); // Add active class for visual feedback
-    }
-});
-
-micBtn.addEventListener('mouseup', () => {
-    if (recognition) {
-        isListening = false;
-        recognition.stop();
-        micBtn.classList.remove('active'); // Remove active class
-    }
-});
-
-micBtn.addEventListener('mouseleave', () => {
-    if (isListening) {
-        isListening = false;
-        recognition.stop();
-        micBtn.classList.remove('active'); // Remove active class if mouse leaves while pressed
-    }
-});
-
-// Function to check if scrollbar is visible
-function isScrollbarVisible() {
-    return chatArea.scrollHeight > chatArea.clientHeight;
-}
-
-// Function to update scroll button position
-function updateScrollButtonPosition() {
-    if (isScrollbarVisible() && chatArea.scrollTop > 0) {
-        scrollTopBtn.classList.add('with-scrollbar');
-        scrollTopBtn.style.display = 'flex';  // Show button
-    } else {
-        scrollTopBtn.style.display = 'none';  // Hide button
-    }
-}
-
-// Add scroll event listener to chat area
-chatArea.addEventListener('scroll', updateScrollButtonPosition);
-
-// Add mutation observer to watch for content changes
-const observer = new MutationObserver(updateScrollButtonPosition);
-observer.observe(chatArea, { childList: true, subtree: true });
-
-function scrollToTop() {
-    chatArea.scrollTo({
-        top: 0,
-        behavior: 'smooth'
-    });
-}
-
-function appendMessage(message, sender, isLoading = false) {
-  if (!message.trim() && !isLoading) return; // Prevent empty messages unless it's a loading message
-
-  const messageDiv = document.createElement('div');
-  messageDiv.classList.add('message', sender === 'user' ? 'user-message' : 'bot-message');
-
-  if (isLoading) {
-    messageDiv.innerHTML = \`
-      <div class="loading-spinner">
-        <div class="spinner"></div>
-      </div>
-    \`;
-    loadingMessage = messageDiv;
-  } else {
-    messageDiv.innerHTML = message;
-    messageDiv.style.opacity = 0; // Start hidden for all messages
-  }
-
-  chatArea.appendChild(messageDiv);
-  chatArea.scrollTop = chatArea.scrollHeight;
-  updateScrollButtonPosition();
-
-  if (!isLoading && loadingMessage) {
-    loadingMessage.remove();
-    loadingMessage = null;
-  }
-
-  // Apply gradual fade-in effect for both user and bot messages
-  setTimeout(() => {
-    messageDiv.style.transition = 'opacity 0.5s ease-in-out';
-    messageDiv.style.opacity = 1;
-  }, 300);
-}
-
-async function sendMessage() {
-  sendBtn.classList.add('send-btn-pressed'); // Add the pressed class
-
-  const userInput = document.getElementById('user-input').value.trim();
-  if (userInput === '') {
-    sendBtn.classList.remove('send-btn-pressed'); // Remove the class if input is empty
-    return;
-  }
-
-  appendMessage(userInput, 'user');
-  document.getElementById('user-input').value = '';
-  appendMessage('', 'bot', true); // Show loading spinner
-
-  setTimeout(() => {
-    sendBtn.classList.remove('send-btn-pressed'); // Remove the class after a short delay
-  }, 200); // Adjust the delay as needed
-
-  try {
-    const response = await fetch('http://127.0.0.1:8000/api/ask-question/', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ question: userInput }),
-    });
-
-    if (!response.ok) {
-      throw new Error('Network response was not ok');
-    }
-
-    const data = await response.json();
-    appendMessage(data.answer, 'bot', false); // Append bot's response
-    console.log(data);
-  } catch (error) {
-    console.error('Error:', error);
-    appendMessage('Sorry, something went wrong. Please try again later.', 'bot', false);
-  }
-}
-
-function toggleDropdown() {
-    dropdownContent.classList.toggle('show');
-    dropdownArrow.classList.toggle('rotate');
-}
-
-function redirectTo(section) {
-   appendMessage(section.charAt(0).toUpperCase() + section.slice(1), 'user');
-    
-    appendMessage('', 'bot', true);
-    setTimeout(() => {
-      const urls = {
-        services: "https://sixdindia.com/services",
-        sectors: "https://sixdindia.com/sectors",
-        "case-studies": "https://sixdindia.com/case-studies",
-        industry4: "https://sixdindia.com/industry4",
-        about: "https://sixdindia.com/about",
-        "contact-us": "https://sixdindia.com/contact"
-      };
-      window.open(urls[section], '_blank');
-      appendMessage('I have opened the tab for you, please check.', 'bot');
-    }, 1000);
-}
-    
-function handleContactUs() {
-  appendMessage('Contact Us', 'user');
-  appendMessage('', 'bot', true); // Show loading icon
-  setTimeout(() => {
-    askSector();
-  }, 1000);
-}
-
-function askSector() {
-  // Remove any existing loading message
-  if (loadingMessage) {
-    loadingMessage.remove();
-    loadingMessage = null;
-  }
-
-  appendMessage('Your organisation belongs to which sector?', 'bot');
-
-  // Show sector buttons immediately without additional loading
-  const sectors = ['Oil & Gas', 'Steel', 'Power', 'Green Energy', 'Cement', 'Automobile'];
-  const sectorBtnContainer = document.createElement('div');
-  sectorBtnContainer.classList.add('sector-btn-container');
-  sectors.forEach(sector => {
-    const sectorBtn = document.createElement('button');
-    sectorBtn.classList.add('sector-btn');
-    sectorBtn.textContent = sector;
-    sectorBtn.onclick = () => selectSector(sector);
-    sectorBtnContainer.appendChild(sectorBtn);
-  });
-
-  chatArea.appendChild(sectorBtnContainer);
-  chatArea.scrollTop = chatArea.scrollHeight;
-  updateScrollButtonPosition();
-}
-
-function selectSector(sector) {
-  // Remove the sector buttons container to prevent multiple clicks
-  const sectorBtnContainer = document.querySelector('.sector-btn-container');
-  if (sectorBtnContainer) {
-    sectorBtnContainer.remove();
-  }
-
-  appendMessage(sector, 'user');
-  appendMessage('', 'bot', true); // Show loading icon while preparing contact info
-  setTimeout(() => {
-    let contactMessage = "Please contact the following for more details:";
-    if (sector === 'Oil & Gas' || sector === 'Green Energy' || sector === 'Automobile') {
-      contactMessage = \`Contact:<br>  
-        Alfisha Khan<br>  
-        <a class="email-link" href="javascript:void(0);" onclick="openComposeEmail('alfisha.khan@sixdindia.com')">alfisha.khan@sixdindia.com</a><br>  
-        +91 8800554157
-      \`;
-    } else if (sector === 'Steel') {
-      contactMessage = \`Contact:<br>  
-        Nidhi Bharti<br>  
-        <a class="email-link" href="javascript:void(0);" onclick="openComposeEmail('nidhi@sixdindia.com')">nidhi@sixdindia.com</a><br>  
-        +91 8800797883
-      \`;
-    } else if (sector === 'Power' || sector === 'Cement') {
-      contactMessage = \`Contact:<br>  
-        Manmeet Kaur<br>  
-        <a class="email-link" href="javascript:void(0);" onclick="openComposeEmail('manmeet.kaur@sixdindia.com')">manmeet.kaur@sixdindia.com</a><br>  
-        +91 8800188112
-      \`;
-    } else if (sector === 'Others') {
-      contactMessage = \`Contact:<br>  
-        Suraj Prakash Pandey<br>  
-        <a class="email-link" href="javascript:void(0);" onclick="openComposeEmail('suraj.pandey@sixdindia.com')">suraj.pandey@sixdindia.com</a><br>  
-        +91 9790020583
-      \`;
-    }
-
-    // Remove the loading message before appending the contact info
-    if (loadingMessage) {
-      loadingMessage.remove();
-      loadingMessage = null;
-    }
-
-    appendMessage(contactMessage, 'bot');
-  }, 1000);
-}
-
-function openComposeEmail(email) {
-    const mailUrl = \`https://mail.google.com/mail/?view=cm&to=\${email}&su=Subject&body=Message\`;
-    window.open(mailUrl, '_blank');
-}
-
-document.getElementById('user-input').addEventListener('keydown', function(event) {
-    if (event.key === 'Enter') {
-      sendMessage();
-    }
-});
-
-// Initial check for scrollbar
-updateScrollButtonPosition();
-`;
-
-const chatbotHTML = `
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>SixD-ChatBot</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-  <style>${existingStyles}</style>
-  <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-7EHJXETHGT"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-7EHJXETHGT');
-</script>
-</head>                                           
-<body>
-  ${existingChatbotHTML}
-  <script>${existingJavaScript}</script>
+  <script>
+    ${existingJavaScript}
+  </script>
 </body>
 </html>
 `;
