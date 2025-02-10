@@ -249,7 +249,7 @@ const existingStyles = `
   }
 
   .dropdown {
-    margin-top: 8px;
+    margin-top: 2px;
     border: 1px solid #ccc;
     padding: 10px;
     border-radius: 5px;
@@ -717,7 +717,7 @@ function Chatbot() {
 
   // Rest of your component code...
   useEffect(() => {
-    const welcomeMessage = "Weelcome to SixD Chatbot";
+    const welcomeMessage = "Welcome to SixD Chatbot";
     const subMessage = "Yoour intelligent assistant for engineering solutions";
 
     let i = 0;
