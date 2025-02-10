@@ -717,7 +717,7 @@ function Chatbot() {
 
   // Rest of your component code...
   useEffect(() => {
-    const welcomeMessage = "Welcome to SixD Chatbot";
+    const welcomeMessage = "Weelcome to SixD Chatbot";
     const subMessage = "Yoour intelligent assistant for engineering solutions";
 
     let i = 0;
