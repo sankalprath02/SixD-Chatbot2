@@ -19,22 +19,22 @@ const existingStyles = `
     font-size: 15px;
     margin-right: 10px;
     transition: transform 0.2s ease-in-out; /* Smooth transition for scaling */
-}
+  }
 
-.mic-btn.active {
+  .mic-btn.active {
     background-color: #e77f00; /* Change color when active */
     box-shadow: 0 0 10px rgba(255, 140, 0, 0.5); /* Add a glow effect */
     transform: scale(1.2); /* Enlarge the button */
-}
+  }
 
-.mic-btn i {
+  .mic-btn i {
     font-size: 16px;
     transition: transform 0.2s ease-in-out; /* Smooth transition for icon scaling */
-}
+  }
 
-.mic-btn.active i {
+  .mic-btn.active i {
     transform: scale(1.2); /* Enlarge the icon */
-}
+  }
 
   /* Typewriter animation */
   @keyframes typing {
@@ -188,6 +188,20 @@ const existingStyles = `
     border-radius: 4px;
     font-family: 'Futura Md BT', Arial, sans-serif;
     font-size: 15px;
+  }
+
+  #send-btn:active {
+   background-color: #e77f00; /* Darker shade of the original color */
+   transform: scale(0.95); /* Slightly shrink the button */
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Add a shadow for a pressed effect */
+   transition: background-color 0.1s ease, transform 0.1s ease, box-shadow 0.1s ease; /* Smooth transition */
+  }
+
+  .send-btn-pressed {
+   background-color: #e77f00;
+   transform: scale(0.95);
+   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+   transition: background-color 0.1s ease, transform 0.1s ease, box-shadow 0.1s ease;
   }
 
   .scroll-top-btn {
@@ -366,6 +380,7 @@ const dropdownContent = document.getElementById('dropdown-content');
 const scrollTopBtn = document.querySelector('.scroll-top-btn');
 const micBtn = document.getElementById('mic-btn');
 const userInput = document.getElementById('user-input');
+const sendBtn = document.getElementById('send-btn');
 
 let loadingMessage = null;
 let recognition = null;
@@ -453,7 +468,7 @@ function scrollToTop() {
     });
 }
 
-  function appendMessage(message, sender, isLoading = false) {
+function appendMessage(message, sender, isLoading = false) {
   if (!message.trim() && !isLoading) return; // Prevent empty messages unless it's a loading message
 
   const messageDiv = document.createElement('div');
@@ -487,13 +502,22 @@ function scrollToTop() {
   }, 300);
 }
 
-  async function sendMessage() {
+async function sendMessage() {
+  sendBtn.classList.add('send-btn-pressed'); // Add the pressed class
+
   const userInput = document.getElementById('user-input').value.trim();
-  if (userInput === '') return;
+  if (userInput === '') {
+    sendBtn.classList.remove('send-btn-pressed'); // Remove the class if input is empty
+    return;
+  }
 
   appendMessage(userInput, 'user');
   document.getElementById('user-input').value = '';
   appendMessage('', 'bot', true); // Show loading spinner
+
+  setTimeout(() => {
+    sendBtn.classList.remove('send-btn-pressed'); // Remove the class after a short delay
+  }, 200); // Adjust the delay as needed
 
   try {
     const response = await fetch('http://127.0.0.1:8000/api/ask-question/', {
@@ -517,12 +541,12 @@ function scrollToTop() {
   }
 }
 
-  function toggleDropdown() {
+function toggleDropdown() {
     dropdownContent.classList.toggle('show');
     dropdownArrow.classList.toggle('rotate');
-  }
+}
 
-  function redirectTo(section) {
+function redirectTo(section) {
    appendMessage(section.charAt(0).toUpperCase() + section.slice(1), 'user');
     
     appendMessage('', 'bot', true);
@@ -538,9 +562,9 @@ function scrollToTop() {
       window.open(urls[section], '_blank');
       appendMessage('I have opened the tab for you, please check.', 'bot');
     }, 1000);
-  }
+}
     
-  function handleContactUs() {
+function handleContactUs() {
   appendMessage('Contact Us', 'user');
   appendMessage('', 'bot', true); // Show loading icon
   setTimeout(() => {
@@ -548,7 +572,7 @@ function scrollToTop() {
   }, 1000);
 }
 
- function askSector() {
+function askSector() {
   // Remove any existing loading message
   if (loadingMessage) {
     loadingMessage.remove();
@@ -574,7 +598,7 @@ function scrollToTop() {
   updateScrollButtonPosition();
 }
 
- function selectSector(sector) {
+function selectSector(sector) {
   // Remove the sector buttons container to prevent multiple clicks
   const sectorBtnContainer = document.querySelector('.sector-btn-container');
   if (sectorBtnContainer) {
@@ -621,19 +645,19 @@ function scrollToTop() {
   }, 1000);
 }
 
-  function openComposeEmail(email) {
+function openComposeEmail(email) {
     const mailUrl = \`https://mail.google.com/mail/?view=cm&to=\${email}&su=Subject&body=Message\`;
     window.open(mailUrl, '_blank');
-  }
+}
 
-  document.getElementById('user-input').addEventListener('keydown', function(event) {
+document.getElementById('user-input').addEventListener('keydown', function(event) {
     if (event.key === 'Enter') {
       sendMessage();
     }
-  });
+});
 
-  // Initial check for scrollbar
-  updateScrollButtonPosition();
+// Initial check for scrollbar
+updateScrollButtonPosition();
 `;
 
 const chatbotHTML = `
@@ -654,7 +678,7 @@ const chatbotHTML = `
 
   gtag('config', 'G-7EHJXETHGT');
 </script>
-</head>
+</head>                                           
 <body>
   ${existingChatbotHTML}
   <script>${existingJavaScript}</script>
@@ -693,7 +717,7 @@ function Chatbot() {
 
   // Rest of your component code...
   useEffect(() => {
-    const welcomeMessage = "Weelcome to SixD Chatbot";
+    const welcomeMessage = "Welcome to SixD Chatbot";
     const subMessage = "Yoour intelligent assistant for engineering solutions";
 
     let i = 0;
