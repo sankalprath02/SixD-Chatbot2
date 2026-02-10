@@ -577,12 +577,12 @@ const existingJavaScript = `
         appendMessage('', 'bot', true);
         setTimeout(() => {
           const urls = {
-            services: "https://sixdindia.com/services",
-            sectors: "https://sixdindia.com/sectors",
-            "case-studies": "https://sixdindia.com/case-studies",
-            industry4: "https://sixdindia.com/industry4",
-            about: "https://sixdindia.com/about",
-            "contact-us": "https://sixdindia.com/contact"
+            services: "https://sixdengineering.com/",
+            sectors: "https://sixdengineering.com/",
+            "case-studies": "https://sixdengineering.com/",
+            industry4: "https://sixdengineering.com/",
+            about: "https://sixdengineering.com/",
+            "contact-us": "https://sixdengineering.com/"
           };
           window.open(urls[section], '_blank');
           appendMessage('I have opened the tab for you, please check.', 'bot');
@@ -867,3 +867,4 @@ function Chatbot() {
 }
 
 export default Chatbot;
+
