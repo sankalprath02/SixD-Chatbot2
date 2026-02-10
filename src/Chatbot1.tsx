@@ -607,7 +607,7 @@ const existingJavaScript = `
       appendMessage('Your organisation belongs to which sector?', 'bot');
 
       // Show sector buttons immediately without additional loading
-      const sectors = ['Oil & Gas', 'Steel', 'Power', 'Green Energy', 'Cement', 'Automobile'];
+      const sectors = ['Oil & Gas', 'Steel', 'Power', 'Green Energy', 'Cement', 'Digital Transformation'];
       const sectorBtnContainer = document.createElement('div');
       sectorBtnContainer.classList.add('sector-btn-container');
       sectors.forEach(sector => {
@@ -634,11 +634,11 @@ const existingJavaScript = `
       appendMessage('', 'bot', true); // Show loading icon while preparing contact info
       setTimeout(() => {
         let contactMessage = "Please contact the following for more details:";
-        if (sector === 'Oil & Gas' || sector === 'Green Energy' || sector === 'Automobile') {
+        if (sector === 'Oil & Gas' || sector === 'Green Energy' || sector === 'Digital Intelligence') {
           contactMessage = \`Contact:<br>  
-            Alfisha Khan<br>  
-            <a class="email-link" href="javascript:void(0);" onclick="openComposeEmail('alfisha.khan@sixdindia.com')">alfisha.khan@sixdindia.com</a><br>  
-            +91 8800554157
+            Vaivav Tyagi<br>  
+            <a class="email-link" href="javascript:void(0);" onclick="openComposeEmail('vaibhav.tyagi@sixdengineering.com')">vaibhav.tyagi@sixdengineering.com</a><br>  
+            +91 98732 21798
           \`;
         } else if (sector === 'Steel') {
           contactMessage = \`Contact:<br>  
@@ -867,4 +867,5 @@ function Chatbot() {
 }
 
 export default Chatbot;
+
 
