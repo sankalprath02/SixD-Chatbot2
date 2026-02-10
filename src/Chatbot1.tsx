@@ -709,7 +709,7 @@ const chatbotHTML = `
     <div id="chat-header"><strong>Welcome to SixD Chatbot</strong></div>
     <div id="chat-area">
       <div class="bot-message message">
-        <span class="typewriter">Hi, I am Kanika, SixD's Virtual Assistant.</span>
+        <span class="typewriter">Hi, I am SixD's Virtual Assistant.</span>
       </div>
       <div class="bot-message message">
         <span class="typewriter">How can I help you.</span>
@@ -867,3 +867,4 @@ function Chatbot() {
 }
 
 export default Chatbot;
+
